@@ -1,0 +1,13 @@
+# Shape Detection Algorithm Report
+
+## Part 1: Static Image Detection
+
+For the original image, I began my approach by simply using color thresholding, as all the shapes, save for the green trapezoid, had colors sufficiently different from the background noise. However, when applying the filter to include the green trapezoid, this introduced a small amount of noise from the grassy background. To combat this, I used a combination of OpenCV’s morphological operations with a relatively fine kernel to filter out the small bits of noise from the mask while leaving the larger shapes intact. Then, to find the coordinates and centers, I used OpenCV’s moment and contour calculations to find the centroid of each shape and to mark the outlines of each shape.
+
+## Part 2: Video Detection
+
+For the video against the grassy background, the algorithm performed very well, considering that the shapes remained the same color throughout. Additionally, the operations used previously, being on an array rather than a list, were very simple and not very computationally demanding. As such, the algorithm I had applied previously had few issues when used for each frame of a video as opposed to for a single image.
+
+## Part 3: Background-Agnostic Detection
+
+To achieve background agnosticism, I had to completely rethink my approach from what it was in the first two steps. Initially I attempted simple color thresholding, which worked for some of the shapes, but excluded any part of the shapes that was too close to grey because they were too similar to the black and white background. Instead, I opted to calculate the difference between adjacent pixels. I used OpenCV and the fact that I had each frame stored as a multidimensional array to create two new arrays - one with each pixel’s BGR difference from the pixel to its right, and one with each pixel’s BGR difference from the pixel directly below it. I then used both of these arrays to create a mask, including only the pixels whose neighboring pixels were sufficiently similar in color. However, I struggled with the black and white trapezoid, again because it was similar to the background. To remedy this, I used OpenCV and array operations again to calculate the local variance around each pixel, using a sample of the surrounding pixels to see if the area was noisy or flat. In the case where the area was flat, I included the area in my mask, assuming that it was part of one of the main shapes. This local variance approach was the most effective in determining which pixels belonged to shapes and which didn’t, because it checked the surrounding neighborhood of pixels instead of only checking a smaller group.
