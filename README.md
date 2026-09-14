@@ -42,15 +42,14 @@ mkdir -p ~/ros2_ws/src
 Clone this repository:
 
 ```bash
-cd ~/ros2_ws/src
+cd ~
 git clone https://github.com/FinnGilligan/penn-air-software-challenge.git
 ```
 
 Move the packages into the workspace's src directory:
 
 ```bash
-cd penn-air-software-challenge
-cp -R src/* ~/ros2_ws/src/
+cp -R ~/penn-air-software-challenge/src/* ~/ros2_ws/src/
 ```
 
 Build the workspace:
