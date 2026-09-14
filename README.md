@@ -33,7 +33,7 @@ ros2 topic echo /detections
 ```
 
 # Running the Project
-After installing ROS 2 Jazzy and the required dependencies, create a ROS 2 workspace:
+After installing ROS 2 Jazzy and the required dependencies (cv_bridge, NumPy, OpenCV), create a ROS 2 workspace:
 
 ```bash
 mkdir -p ~/ros2_ws/src
